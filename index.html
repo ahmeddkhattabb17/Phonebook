@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ContactHub – Smart Contact Manager</title>
+  <!-- Fontawsome -->
+  <link rel="stylesheet" href="./css/all.min.css" />
+  <!-- bootstrap -->
+  <link rel="stylesheet" href="./css/bootstrap.min.css" />
+  <!-- stylesheet -->
+  <link rel="stylesheet" href="./css/style.css" />
+  <!-- icon -->
+  <link rel="icon" type="image/x-icon" href="./Images/address-book-solid-full.png" />
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar d-flex align-items-center justify-content-between">
+    <div class="navbar-brand">
+      <div class="brand-icon"><i class="bi bi-person-lines-fill"></i></div>
+      <div class="brand-text">
+        <div class="name">Contact<span>Hub</span></div>
+        <div class="sub">Smart Contact Manager</div>
+      </div>
+    </div>
+    <div class="nav-actions">
+      <button class="btn-add-contact" onclick="openAddModal()">
+        <i class="bi bi-plus-lg"></i> Add Contact
+      </button>
+      <button class="nav-icon-btn"><i class="bi bi-bell"></i></button>
+      <button class="nav-icon-btn"><i class="bi bi-gear"></i></button>
+      <button class="avatar-btn">
+        <img src="./Images/user-avatar.jpg" alt="User" />
+      </button>
+    </div>
+  </nav>
+
+  <!-- MAIN -->
+  <div class="container-fluid px-4 py-4" style="max-width:1300px; margin:0 auto;">
+
+    <!-- STATS -->
+    <div class="row g-3 mb-4">
+      <div class="col-md-4">
+        <div class="stat-card">
+          <div class="stat-icon blue"><i class="bi bi-people-fill"></i></div>
+          <div>
+            <div class="stat-label">Total</div>
+            <div class="stat-value" id="stat-total">0</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="stat-card">
+          <div class="stat-icon orange"><i class="bi bi-star-fill"></i></div>
+          <div>
+            <div class="stat-label">Favorites</div>
+            <div class="stat-value" id="stat-fav">0</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="stat-card">
+          <div class="stat-icon red"><i class="bi bi-heart-pulse-fill"></i></div>
+          <div>
+            <div class="stat-label">Emergency</div>
+            <div class="stat-value" id="stat-emer">0</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="d-flex gap-4 align-items-start">
+
+      <!-- CONTACTS SECTION -->
+      <div class="section-main">
+        <div class="mb-3">
+          <h2 style="font-size:24px;font-weight:800;margin-bottom:2px;">All Contacts</h2>
+          <p class="text-muted" style="font-size:14px;" id="contacts-subtitle">Manage and organize your 0 contacts</p>
+        </div>
+        <div class="search-wrap mb-3">
+          <i class="bi bi-search"></i>
+          <input class="search-input" type="text" id="searchInput" placeholder="Search by name, phone, or email..."
+            oninput="renderContacts()" />
+        </div>
+        <div id="contacts-list"></div>
+      </div>
+
+      <!-- SIDEBAR -->
+      <div style="width:300px;flex-shrink:0;">
+        <!-- Favorites -->
+        <div class="sidebar-card mb-3">
+          <div class="sidebar-header fav">
+            <div class="sidebar-icon orange"><i class="bi bi-star-fill"></i></div>
+            <div>
+              <div class="sidebar-title">Favorites</div>
+              <div class="sidebar-sub">Quick access to starred contacts</div>
+            </div>
+          </div>
+          <div class="sidebar-body" id="sidebar-fav"></div>
+        </div>
+        <!-- Emergency -->
+        <div class="sidebar-card">
+          <div class="sidebar-header emer">
+            <div class="sidebar-icon red"><i class="bi bi-heart-pulse-fill"></i></div>
+            <div>
+              <div class="sidebar-title">Emergency</div>
+              <div class="sidebar-sub">Important contacts for urgent calls</div>
+            </div>
+          </div>
+          <div class="sidebar-body" id="sidebar-emer"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ADD/EDIT MODAL -->
+  <div class="modal fade" id="contactModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width:520px;">
+      <div class="modal-content">
+        <div class="modal-header d-flex justify-content-between align-items-center">
+          <h5 class="modal-title" id="modal-title">Add New Contact</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="avatar-upload">
+            <div class="upload-avatar" id="modal-avatar" onclick="document.getElementById('photoInput').click()">
+              <i class="bi bi-person-fill" id="avatar-icon"></i>
+              <img id="avatar-preview" src="./Images/user-avatar.jpg" alt="Avatar Preview"
+                style="display:none;width:100%;height:100%;object-fit:cover;border-radius:50%;" />
+            </div>
+            <input type="file" id="photoInput" accept="image/*" style="display:none" onchange="handlePhoto(this)" />
+            <button class="btn-change-photo" onclick="document.getElementById('photoInput').click()">
+              <i class="bi bi-camera"></i> Change Photo
+            </button>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Full Name <span class="text-danger">*</span></label>
+            <input class="form-control" id="f-name" type="text" placeholder="Enter full name" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Phone Number <span class="text-danger">*</span></label>
+            <input class="form-control" id="f-phone" type="tel" placeholder="e.g., 01012345678" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Email Address</label>
+            <input class="form-control" id="f-email" type="email" placeholder="name@example.com" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Address</label>
+            <input class="form-control" id="f-address" type="text" placeholder="Enter address" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Group</label>
+            <select class="form-select" id="f-group">
+              <option value="">Select a group</option>
+              <option>Family</option>
+              <option>Friends</option>
+              <option>Work</option>
+              <option>School</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Notes</label>
+            <textarea class="form-control" id="f-notes" rows="3" placeholder="Add notes about this contact"></textarea>
+          </div>
+          <div class="d-flex gap-4 mb-2">
+            <label class="check-label">
+              <input type="checkbox" id="f-fav" /> <span><i class="bi bi-star-fill"></i>Favorite</span>
+            </label>
+            <label class="check-label">
+              <input type="checkbox" id="f-emer" /> <span><i class="bi bi-heart-pulse-fill"></i>Emergency</span>
+            </label>
+          </div>
+        </div>
+        <div class="modal-footer d-flex justify-content-between">
+          <button class="btn-cancel" data-bs-dismiss="modal">Cancel</button>
+          <button class="btn-save" onclick="saveContact()"><i class="bi bi-check-lg"></i> Save Contact</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="./js/bootstrap.bundle.min.js"></script>
+  <script src="./js/script.js"></script>
+</body>
+
+</html>
