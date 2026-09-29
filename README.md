@@ -1,24 +1,34 @@
 # Phonebook
 
-A lightweight contact-management frontend project demonstrating CRUD-style interactions and clean data presentation.
+A lightweight contact-management frontend demonstrating CRUD-oriented interactions, form handling, search, and structured data presentation.
 
-## ✨ Features
-- Contact listing
-- Add and manage contact information
-- Search/data interaction patterns
+## Overview
+
+Phonebook is a focused frontend exercise in managing user-entered data through a simple and responsive interface. The project emphasizes clarity, interaction feedback, and practical JavaScript logic.
+
+## Features
+
+- Contact listing and management
+- Add and edit contact information
+- Delete contacts
+- Search and data interaction
+- Form-based workflows
 - Responsive interface
-- Simple, focused user experience
 
-## 🛠️ Tech Stack
+## Technology
+
 - HTML5
 - CSS3
 - JavaScript
 
-## 🚀 Run Locally
-Open the main HTML file in a browser.
+## Development
 
-## 🎯 Portfolio Focus
-Phonebook demonstrates frontend fundamentals, form handling, data presentation, and CRUD-oriented UI patterns.
+Open the main HTML file in a browser or serve the project through a local static server.
 
-## 👤 Author
-Ahmed Khattab — Frontend Developer
+## Portfolio Focus
+
+JavaScript fundamentals, form handling, CRUD-style interactions, DOM manipulation, data presentation, and responsive UI.
+
+## Author
+
+**Ahmed Khattab** — Front-End Web Developer
