@@ -29,6 +29,10 @@ Open the main HTML file in a browser or serve the project through a local static
 
 JavaScript fundamentals, form handling, CRUD-style interactions, DOM manipulation, data presentation, and responsive UI.
 
+## Academic Context
+
+This project was developed as part of a front-end development assignment at Route Academy. It was created for educational purposes to practice and apply frontend development concepts in a project-based setting.
+
 ## Author
 
 **Ahmed Khattab** — Front-End Web Developer
